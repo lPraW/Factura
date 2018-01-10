@@ -28,7 +28,23 @@
         <property name="can_focus">False</property>
         <property name="orientation">vertical</property>
         <child>
-          <placeholder/>
+          <object class="GtkLabel" id="label12">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">PROYECTO FACTURAS</property>
+            <attributes>
+              <attribute name="style" value="normal"/>
+              <attribute name="weight" value="ultrabold"/>
+              <attribute name="variant" value="normal"/>
+              <attribute name="foreground" value="#c4c4a0a00000"/>
+              <attribute name="background" value="#d3d3d7d7cfcf"/>
+            </attributes>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
         </child>
         <child>
           <object class="GtkNotebook" id="notebook1">
@@ -210,11 +226,12 @@
                     <property name="can_focus">False</property>
                     <property name="layout_style">center</property>
                     <child>
-                      <object class="GtkButton" id="button1">
+                      <object class="GtkButton" id="btnalta">
                         <property name="label" translatable="yes">Alta</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
+                        <signal name="clicked" handler="on_btnalta_clicked" swapped="no"/>
                       </object>
                       <packing>
                         <property name="expand">True</property>
@@ -223,11 +240,12 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkButton" id="button2">
+                      <object class="GtkButton" id="btnbaja">
                         <property name="label" translatable="yes">Baja</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
+                        <signal name="clicked" handler="on_btnbaja_clicked" swapped="no"/>
                       </object>
                       <packing>
                         <property name="expand">True</property>
@@ -236,11 +254,12 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkButton" id="button3">
+                      <object class="GtkButton" id="btnsalir">
                         <property name="label" translatable="yes">Salir</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
+                        <signal name="clicked" handler="on_btnsalir_clicked" swapped="no"/>
                       </object>
                       <packing>
                         <property name="expand">True</property>
