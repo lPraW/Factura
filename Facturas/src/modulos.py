@@ -29,12 +29,10 @@ def limpiar(self):
     self.enttelefono.set_text("")
     self.entlocalidad.set_text("")
     
-def limpiarcoche(self):
-    self.entmatriculacoche.set_text("")
-    self.entfecha.set_text("")
-    self.entconcepto.set_text("")
+def limpiarpro(self):
+    self.entproducto.set_text("")
     self.entprecio.set_text("")
-    self.entunidades.set_text("")
+    self.entstock.set_text("")
 
 def calcularemail(email):
     if re.match("[^@]+@[^@]+\.[^@]+",email.lower()):

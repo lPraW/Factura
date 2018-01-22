@@ -90,3 +90,50 @@ def listarfac(self):
     except sqlite3.Error:
         print("Hubo un error al listar las facturas (este mensaje se ha lanzado desde el modulo de conexion.py)")
         conex.rollback()
+        
+        
+        
+        
+def insertarproducto(fila):
+    try:
+        registro = fila
+        cur.execute("insert into Producto (nombre,precio,stock) values (?,?,?)",registro)
+        conex.commit()
+    except sqlite3.Error:
+        print("Hubo un error al insertar el producto (este mensaje se ha lanzado desde el modulo de conexion.py)")
+        conex.rollback()
+        
+def listaproducto():
+    try:
+        cur.execute("select * from Producto")
+        listado = cur.fetchall()
+        conex.commit()
+        return listado
+    except sqlite3.Error:
+        print("Hubo un error al listar los productos(este mensaje se ha lanzado desde el modulo de conexion.py)")
+        conex.rollback()
+def listarproductos(self):
+    lista=listaproducto()
+    for registro in lista:
+        self.listaproductos.append(registro)
+        
+def cargarpro():
+    try:
+        cur.execute("select nombre from Producto")
+        listado = cur.fetchall()
+        conex.commit()
+        return listado
+    except sqlite3.Error:
+        print("Hubo un error al cargar el combo(este mensaje se ha lanzado desde el modulo de conexion.py)")
+        conex.rollback()
+        
+        
+def listaprecio(producto):
+    try:
+        cur.execute("select precio from Producto where nombre = ?", (producto,))
+        listado = cur.fetchone()
+        conex.commit()
+        return listado
+    except sqlite3.Error:
+        print("Hubo un error al cargar el combo(este mensaje se ha lanzado desde el modulo de conexion.py)")
+        conex.rollback()
