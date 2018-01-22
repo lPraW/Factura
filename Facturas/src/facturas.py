@@ -9,6 +9,8 @@ import os
 os.environ['UBUNTU_MENUPROXY'] = '0'
 import gi
 import conexion
+import modulos
+import time
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
 
@@ -36,15 +38,25 @@ class Factura:
         self.btnbaja = b.get_object('btnbaja')
         self.btnsalir = b.get_object('btnsalir')
                                 
-        #Widgets de la ventana COCHES
+        #Widgets de la ventana FACTURACION
+        self.lblfactura = b.get_object('lblfactura')
+        self.entcliente = b.get_object('entcliente')
+        self.vistafacturas = b.get_object('vistafacturas')
+        self.listafacturas = b.get_object('listafacturas')
+        
+        self.btnventa = b.get_object('btnventa')
+        self.btnnoventa = b.get_object('btnnoventa')
 
         dic = {'on_venprincipal_delete_event':self.salir,
-        'on_btnalta_clicked':self.alta,'on_btnbaja_clicked':self.baja,'on_btnsalir_clicked':self.salir,}
+        'on_btnalta_clicked':self.alta,'on_btnbaja_clicked':self.baja,'on_btnsalir_clicked':self.salir,
+        'on_vistaclientes_cursor_changed': self.selectdato,
+        
+        'on_btnventa_clicked':self.venta,
+        }
         b.connect_signals(dic)
         self.venprincipal.show()
+        self.venprincipal.maximize()
         conexion.listarclientes(self)
-
-        
 ##Ahora vienen las funciones
     def iniciar(self,widget,data=None):
         var=1
@@ -64,12 +76,61 @@ class Factura:
             #modulos.limpiar(self)
             self.listaclientes.clear()
             conexion.listarclientes(self)
+            modulos.limpiar(self)
         
     def baja(self,widget,data=None):
-        var=1
+        if self.entdni.get_text():
+            conexion.baja(self.entdni.get_text())
+            
+        self.listaclientes.clear()
+        conexion.listarclientes(self)
+        modulos.limpiar(self)
+            
     def salir(self,widget,data=None):
         Gtk.main_quit()
+        
+    def venta(self,widget,data=None):
+        self.fecha = time.strftime('%d/%m/%y')
+        self.clidni = self.entcliente.get_text()
+        fila = (self.clidni,self.fecha)
+        
+        conexion.altafac(fila)
+        self.listafacturas.clear()
+        conexion.listarfacturas(self)
+        modulos.limpiar(self)
+        
+        conexion.listarfac(self)#Esto nos da el numero de facturas
        
+       
+       
+       
+       
+       
+       
+       
+       
+    def selectdato(self, widget, data=None):
+        model, iter = self.vistaclientes.get_selection().get_selected()
+        if iter != None:
+            sdni = model.get_value(iter, 0)
+            snome = model.get_value(iter, 1)
+            sapel = model.get_value(iter, 2)
+            sdir = model.get_value(iter, 3)
+            smail = model.get_value(iter, 4)
+            stel = model.get_value(iter, 5)
+            sloc = model.get_value(iter, 6)
+            
+            
+            self.entdni.set_text(sdni)
+            self.entnombre.set_text(snome)
+            self.entapellidos.set_text(sapel)
+            self.entdireccion.set_text(sdir)
+            self.entemail.set_text(smail)
+            self.enttelefono.set_text(stel)
+            self.entlocalidad.set_text(sloc)
+            
+            self.entcliente.set_text(sdni)
+            
 if __name__ == '__main__':
     main = Factura()
     Gtk.main()

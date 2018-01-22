@@ -6,7 +6,6 @@
 __author__ = "a16manuelapg"
 __date__ = "$Oct 18, 2017 12:08:13 PM$"
 
-from zipfile import ZipFile, BadZipfile
 import re
 def calcular(dni):
     tabla = "TRWAGMYFPDXBNJZSQVHLCKE"
@@ -23,31 +22,19 @@ def calcular(dni):
     return False
 def limpiar(self):
     self.entdni.set_text("")
-    self.entmodelo.set_text("")
     self.entnombre.set_text("")
-    self.entmarca.set_text("")
-    self.entmatricula.set_text("")
+    self.entapellidos.set_text("")
+    self.entdireccion.set_text("")
+    self.entemail.set_text("")
+    self.enttelefono.set_text("")
+    self.entlocalidad.set_text("")
+    
 def limpiarcoche(self):
     self.entmatriculacoche.set_text("")
     self.entfecha.set_text("")
     self.entconcepto.set_text("")
     self.entprecio.set_text("")
     self.entunidades.set_text("")
-def zipbackup(fichero):
-    if fichero != "":
-        try:
-            with ZipFile(fichero + '.zip', 'w') as filezip:
-                filezip.write(fichero)
-                filezip.close()
-        except BadZipfile:
-            print "algun error al comprimier"
-    else:
-        print "no existe el fichero %s" % fichero
-        
-def restaurarzip(fichero):
-    with ZipFile(fichero, 'r') as filezip:
-        filezip.extractall('/home/a16manuelapg/NetBeansProjects/PROYECTO_A/src/copias_restauradas')
-        filezip.close()
 
 def calcularemail(email):
     if re.match("[^@]+@[^@]+\.[^@]+",email.lower()):
